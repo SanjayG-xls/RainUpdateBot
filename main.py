@@ -6,8 +6,8 @@ import os
 API_KEY = os.environ['OWM_API_KEY']
 LAT = 12.9676  # Kundrathur
 LON = 80.0851
-BOT_TOKEN = os.environ['TELEGRAM_BOT_TOKEN']
-CHAT_ID = os.environ['TELEGRAM_CHAT_ID']
+BOT_TOKEN = os.environ['XLSXRAIN_BOT_TOKEN']
+CHAT_ID = os.environ['XLSXRAIN_CHAT_ID']
 IST = pytz.timezone('Asia/Kolkata')
 
 def get_weather_forecast():
@@ -19,11 +19,11 @@ def get_weather_forecast():
     rain_prob = tomorrow.get('pop', 0) * 100
 
     if rain_prob > 50:
-        message = f"🌧️ Rain is likely tomorrow with a {rain_prob:.0f}% chance."
+        message = f"🌧️ Rain is likely tomorrow with a {rain_prob:.0f}% chance.You should definetly take your umbrellaaa 🌧️"
     elif rain_prob > 20:
-        message = f"🌦️ There's a {rain_prob:.0f}% chance of rain tomorrow. Stay alert."
+        message = f"🌦️ There's a {rain_prob:.0f}% chance of rain tomorrow. Stay alert and take your umbrellaaaa!!!! 🌦️"
     else:
-        message = f"☀️ No rain expected tomorrow. Chance is only {rain_prob:.0f}%."
+        message = f"☀️ No rain expected tomorrow. Chance is only {rain_prob:.0f}%. you can finnaly wear white shirt!!! ☀️"
 
     return message
 
