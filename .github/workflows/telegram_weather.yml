@@ -2,7 +2,7 @@ name: Telegram Weather Bot
 
 on:
   schedule:
-    - cron: '30 12 * * *'
+    - cron: '0 13 * * *'  
   workflow_dispatch:
 
 jobs:
