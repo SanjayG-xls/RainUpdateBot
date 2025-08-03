@@ -11,7 +11,7 @@ CHAT_ID = os.environ['XLSXRAIN_CHAT_ID']
 IST = pytz.timezone('Asia/Kolkata')
 
 def get_weather_forecast():
-    url = f'https://api.openweathermap.org/data/2.5/onecall?lat={LAT}&lon={LON}&exclude=current,minutely,hourly,alerts&appid={API_KEY}&units=metric'
+    url = f'https://api.openweathermap.org/data/3.0/onecall?lat={LAT}&lon={LON}&exclude=current,minutely,hourly,alerts&appid={API_KEY}&units=metric'
     response = requests.get(url)
     data = response.json()
 
