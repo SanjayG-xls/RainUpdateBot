@@ -1,31 +1,36 @@
+import os
+
 import requests
 import datetime
 import pytz
-import os
 
 API_KEY = os.environ['OWM_API_KEY']
-LAT = 12.9676  # Kundrathur
-LON = 80.0851
+CITY = os.environ['LAT_LONG']
 BOT_TOKEN = os.environ['XLSXRAIN_BOT_TOKEN']
 CHAT_ID = os.environ['XLSXRAIN_CHAT_ID']
 IST = pytz.timezone('Asia/Kolkata')
 
 def get_weather_forecast():
-    url = f'https://api.openweathermap.org/data/3.0/onecall?lat={LAT}&lon={LON}&exclude=current,minutely,hourly,alerts&appid={API_KEY}&units=metric'
-    response = requests.get(url)
-    data = response.json()
+    try:
+        url = f"http://api.weatherapi.com/v1/forecast.json?key={API_KEY}&q={CITY}&days=2"
+        response = requests.get(url)
+        data = response.json()
 
-    tomorrow = data['daily'][1]
-    rain_prob = tomorrow.get('pop', 0) * 100
+        if "error" in data:
+            return f"❌ API Error: {data['error']['message']}"
 
-    if rain_prob > 50:
-        message = f"🌧️ Rain is likely tomorrow with a {rain_prob:.0f}% chance.You should definetly take your umbrellaaa 🌧️"
-    elif rain_prob > 20:
-        message = f"🌦️ There's a {rain_prob:.0f}% chance of rain tomorrow. Stay alert and take your umbrellaaaa!!!! 🌦️"
-    else:
-        message = f"☀️ No rain expected tomorrow. Chance is only {rain_prob:.0f}%. you can finnaly wear white shirt!!! ☀️"
+        forecast = data["forecast"]["forecastday"][1]  # Tomorrow's forecast
+        rain_chance = int(forecast["day"]["daily_chance_of_rain"])
 
-    return message
+        if rain_chance > 50:
+            return f"🌧️☔ Heads up, Kundrathur! There's a 🌊 **{rain_chance}%** chance of rain tomorrow — pack your umbrella and maybe a boat? 🛶💦"
+        elif rain_chance > 20:
+            return f"🌦️ Hmmm... Sky’s feeling moody 🌫️ — **{rain_chance}%** chance of rain in Kundrathur tomorrow! Keep a hoodie handy just in case 🎒☁️"
+        else:
+            return f"☀️🌈 Kundrathur's got sunshine vibes tomorrow! Only **{rain_chance}%** chance of rain — soak up the sun, not the storm 😎🌼"
+
+    except Exception as e:
+        return f"⚠️ Error fetching forecast: {str(e)}"
 
 def send_telegram_message(message):
     telegram_url = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
