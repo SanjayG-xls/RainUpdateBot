@@ -42,7 +42,7 @@ Before running the script, set the following environment variables:
 
 ### 📬 Example Output
 
-🌦️ Hmmm... Sky’s feeling moody 🌫️ — **35%** chance of rain in **Kundrathur** tomorrow!  
+🌦️ Hmmm... Sky’s feeling moody 🌫️ — **35%** chance of rain in **IN YOUR AREA** tomorrow!  
 Keep a hoodie handy just in case 🎒☁️
 
 ---
